@@ -1,0 +1,7 @@
+{
+  "name": "gitstart",
+  "version": "0.1.0",
+  "description": "Initialize repositories and maintain concise, useful project documentation.",
+  "author": { "name": "GitStart contributors" },
+  "license": "MIT"
+}

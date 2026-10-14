@@ -1,0 +1,8 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "gitstart",
+  "version": "0.1.0",
+  "description": "Initialize repositories and maintain concise, useful project documentation.",
+  "author": { "name": "GitStart contributors" },
+  "license": "MIT"
+}

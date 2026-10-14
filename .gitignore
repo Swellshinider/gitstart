@@ -1,0 +1,5 @@
+# Local agent installation state and Python validation artifacts.
+.claude/settings.local.json
+__pycache__/
+*.py[cod]
+.venv/
