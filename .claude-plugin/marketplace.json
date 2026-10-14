@@ -1,0 +1,12 @@
+{
+  "name": "gitstart",
+  "description": "Skills for repository initialization and documentation maintenance.",
+  "owner": { "name": "GitStart contributors" },
+  "plugins": [
+    {
+      "name": "gitstart",
+      "source": "./",
+      "description": "Initialize repositories and maintain concise, useful project documentation."
+    }
+  ]
+}
