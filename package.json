@@ -1,0 +1,28 @@
+{
+  "name": "gitstart-cli",
+  "version": "0.1.0",
+  "description": "Install GitStart repository maintenance skills for coding agents.",
+  "type": "module",
+  "bin": {
+    "gitstart-cli": "bin/gitstart-cli.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "skills/"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Swellshinider/gitstart.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
