@@ -45,6 +45,10 @@ An optional authoring helper is the external skill-creator `quick_validate.py`. 
 uv run --with pyyaml python <path-to-quick_validate.py> skills/<skill-name>
 ```
 
+## Continuous integration
+
+[`.github/workflows/ci.yml`](../.github/workflows/ci.yml) runs on pushes to `main` and on pull requests, on `windows-latest` with Node.js 22 and 24. It runs `pnpm test`, checks that the npm and plugin versions agree, and packs the package, extracts it, and installs all five hosts into an empty project. Claude's strict plugin validators and host discovery remain manual.
+
 ## Behavioral checks
 
 Exercise the skills through an agent in disposable directories. Test an empty folder, freshly initialized Git, an existing documentation convention, missing branding assets, and obsolete documentation with incoming links. Check that a second application preserves project-specific content and open questions.
@@ -73,4 +77,4 @@ Validated on Windows on 2026-10-14 with Node.js `24.21.0` and pnpm `11.13.0`:
 - The packed tarball contained the executable, standard-library installer, and all canonical skill assets, excluding tests, caches, and development configuration. Its extracted CLI installed into a disposable project; `npx` also executed the local tarball successfully outside the checkout.
 - A real terminal exercised multiple-agent selection, default project scope, and Ctrl+C cancellation without writes. All five JSON manifests, 28 local Markdown links, and README license placement passed checks. Claude's three strict packaging validators passed again.
 
-Real discovery and workflow sessions for copied skills in all five hosts remain pending manual testing. Linux/macOS and the minimum Node.js 22 runtime were not exercised. Do not interpret documented native paths or passing copy tests as completed host validation. Public npm publication has not occurred and requires separate approval.
+Real discovery and workflow sessions for copied skills in all five hosts remain pending manual testing. Only Windows is supported; Linux and macOS are not tested. Do not interpret documented native paths or passing copy tests as completed host validation. Public npm publication has not occurred and requires separate approval.

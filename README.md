@@ -10,6 +10,7 @@ GitStart v0.1.0 packages three Markdown skills and a dependency-free Node.js ins
 
 ### Requirements
 
+- Windows 11; other platforms are not supported.
 - Node.js 22 or newer for the installer.
 - A supported agent with Agent Skills enabled. Install and configure the host separately.
 - pnpm for local development and package validation.

@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [22, 24]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Test
+        run: pnpm test
+
+      - name: Check metadata
+        shell: pwsh
+        run: |
+          $files = 'package.json', 'plugin.json', '.claude-plugin/plugin.json', '.claude-plugin/marketplace.json', '.agents/plugins/marketplace.json'
+          $json = @{}
+          foreach ($f in $files) { $json[$f] = Get-Content $f -Raw | ConvertFrom-Json }
+          $versions = 'package.json', 'plugin.json', '.claude-plugin/plugin.json' | ForEach-Object { $json[$_].version }
+          if (($versions | Select-Object -Unique).Count -ne 1) { throw "Version mismatch: $($versions -join ', ')" }
+
+      - name: Pack and run tarball
+        shell: pwsh
+        run: |
+          $pkg = Join-Path $env:RUNNER_TEMP 'pkg'
+          $extract = Join-Path $env:RUNNER_TEMP 'extract'
+          $project = Join-Path $env:RUNNER_TEMP 'project'
+          New-Item -ItemType Directory $pkg, $extract, $project | Out-Null
+          pnpm pack --pack-destination $pkg
+          if ($LASTEXITCODE) { throw 'pack failed' }
+          tar -xf (Get-ChildItem $pkg -Filter *.tgz).FullName -C $extract
+          if ($LASTEXITCODE) { throw 'extract failed' }
+          Set-Location $project
+          node (Join-Path $extract 'package/bin/gitstart-cli.js') --agents 'claude,codex,cursor,vscode,gemini' --scope project
+          if ($LASTEXITCODE) { throw 'installer failed' }
+          foreach ($root in '.claude', '.agents', '.cursor', '.github', '.gemini') {
+            foreach ($skill in 'gitstart-init', 'gitstart-readme', 'gitstart-docs') {
+              if (-not (Test-Path "$root/skills/$skill/SKILL.md")) { throw "Missing $root/skills/$skill/SKILL.md" }
+            }
+          }
+          if (-not (Test-Path '.claude/skills/gitstart-init/assets/AGENTS.template.md')) { throw 'Missing skill assets' }

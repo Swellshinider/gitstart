@@ -5,6 +5,7 @@
 Provide three reusable repository maintenance skills, install them through a selectable npm CLI, and apply their conventions to GitStart itself. This file is the current specification.
 
 - English instructions and documentation; MIT license.
+- Supported platform: Windows 11 only. CI runs on GitHub's Windows runner with Node.js 22 and 24.
 - Canonical skills: `gitstart-init`, `gitstart-readme`, and `gitstart-docs` under `skills/`.
 - Plugin and marketplace name: `gitstart`; initial version: `0.1.0`.
 - Private GitHub distribution repository: `Swellshinider/gitstart`; collaborators require repository access. Local installation is the verified path.
