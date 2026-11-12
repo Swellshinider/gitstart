@@ -8,11 +8,11 @@
 
 ### Requirements
 
-{{Actual prerequisites}}
+{{Prerequisites for using the project; leave out build and contribution tools}}
 
 ### Installation
 
-{{Verified setup steps, or a brief explanation if installation does not apply}}
+{{Verified end-user installation from published channels, or a brief explanation if installation does not apply or the project is not published yet}}
 
 ### Uninstallation
 
@@ -21,6 +21,10 @@
 ## Usage
 
 {{A small usable example; omit this section if nothing can be used yet}}
+
+## Development
+
+{{Short pointer to development and contribution docs; omit if there is nothing to link yet}}
 
 ## AI Coding Assistant
 

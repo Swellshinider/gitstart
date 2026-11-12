@@ -16,10 +16,20 @@ Keep this section order when the GitStart structure is used:
 1. Centered project title and concise description; optional real logo, badges, and screenshot.
 2. Quick Start: Requirements, Installation, Uninstallation.
 3. Project-specific usage or other useful sections.
-4. AI Coding Assistant.
-5. Documentation.
-6. Project policies.
-7. LICENSE, always last.
+4. Development: a short pointer to development and contribution docs.
+5. AI Coding Assistant.
+6. Documentation.
+7. Project policies.
+8. LICENSE, always last.
+
+## Write for the end user first
+
+Quick Start serves someone who wants to use the project, not change it.
+
+- Requirements list only what using the project needs. Tools needed to build, test, or contribute belong under Development.
+- Installation uses published channels first: package registry, plugin marketplace, container image, or release download. Prefer a global or per-project install command over a path to a checkout.
+- Cloning, installing dependencies, building, running tests, and running from source belong in Development or a linked development document, never in Quick Start. Keep Development to a short pointer when such a document exists.
+- If the project can only be installed from source, or is not published yet, say so plainly in Installation, and do not document commands that would fail.
 
 ## Ground every claim
 
@@ -29,7 +39,7 @@ Keep this section order when the GitStart structure is used:
 - Include a logo or screenshot only when its asset exists; add appropriate alternative text. Include badges only for verified repository, CI, or license targets. Omit unsupported branding without creating placeholder images.
 - Keep Markdown outside HTML paragraph blocks. A centered title and an optional HTML image can stand alone; the description and any Markdown screenshot belong in normal Markdown.
 - Link the AI Coding Assistant section to existing `AGENTS.md` and relevant docs. If instructions are missing, identify the gap rather than creating a broken link or expanding this task into a bootstrap.
-- Link only current documentation and real policies. State that licensing is undecided if no license is established; never infer permission to reuse the project.
+- Link only current documentation and real policies; under Project policies, link the community files that exist (contributing guide, code of conduct, security policy, support). State that licensing is undecided if no license is established; never infer permission to reuse the project.
 - Replace template tokens with facts and remove template notes from the output. Preserve useful content during updates; do not replace an existing README wholesale just to change headings.
 
 ## Verify and report

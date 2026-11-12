@@ -10,7 +10,7 @@ The three skills are independently usable:
 
 The root [`plugin.json`](../plugin.json) packages the skills for Codex, Cursor, and VS Code. [`.claude-plugin/plugin.json`](../.claude-plugin/plugin.json) packages the same directory for Claude Code. Marketplace catalogs point to the plugin root: [`.agents/plugins/marketplace.json`](../.agents/plugins/marketplace.json) for Codex, [`.claude-plugin/marketplace.json`](../.claude-plugin/marketplace.json) for Claude Code and VS Code (Copilot reads it as a fallback location), and [`.cursor-plugin/marketplace.json`](../.cursor-plugin/marketplace.json) for Cursor. Skills are not copied into separate tool-specific versions.
 
-The npm package `gitstart-cli` exposes the `gitstart-cli` binary through [`bin/gitstart-cli.js`](../bin/gitstart-cli.js). It requires Node.js 22 or newer, uses the standard library, and has no dependencies or postinstall hook. It is prepared for publication, not published.
+The npm package `gitstart-cli` exposes the `gitstart-cli` binary through [`bin/gitstart-cli.js`](../bin/gitstart-cli.js). It requires Node.js 22 or newer, uses the standard library, and has no dependencies or postinstall hook. Publication to npm requires separate approval.
 
 The installer copies all three canonical skill folders and assets, unconverted, to the [documented native roots](../README.md#installation); it never installs hosts or edits their settings. Selection, scope, conflict handling, and duplicate discovery with plugins are described in the README. The guarantees below are implemented in [`lib/installer.js`](../lib/installer.js).
 
