@@ -37,6 +37,7 @@ If another layout already exists, describe the GitStart alternative and offer a 
 - Create a concise README describing the project and its usable setup or current development state. Link to existing documentation and agent instructions; never invent working commands, capabilities, assets, badges, or policies.
 - Use [the agent instructions template](assets/AGENTS.template.md) only as a starting point when instructions are absent. Existing instructions take precedence. For Claude Code projects, offer a small `CLAUDE.md` that imports `AGENTS.md` with `@AGENTS.md` if no equivalent entry point exists; keep the instructions in one place.
 - Use [the specification template](assets/specification.template.md) to record intent, the first deliverable, accepted decisions, and remaining questions. Link the original idea in place; do not silently move, delete, or duplicate it.
+- For a monorepo, put shared documentation at the root; each package's README and `AGENTS.md` cover only what is specific to it and link to the root.
 - Describe actual architecture, setup, and contribution steps. An instruction-only project needs no invented services, package manager, build, or test runner.
 - Add ignore rules appropriate to discovered tooling, local artifacts, and secret-bearing files. Preserve existing rules and intentional sample files; never read or copy credentials into documentation.
 - Add a license only after the user chooses one. Until then, state that licensing is undecided and omit license badges or reuse claims.

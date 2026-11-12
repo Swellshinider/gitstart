@@ -168,6 +168,16 @@ test('destination symlinks or Windows junctions are rejected without touching th
   assert.deepEqual(fs.readdirSync(external), []);
 });
 
+test('installs when the project root itself is behind a symlink or junction', t => {
+  const context = fixture(t);
+  const redirected = path.join(context.directory, 'redirected');
+  fs.mkdirSync(redirected);
+  fs.symlinkSync(redirected, path.join(context.directory, 'linked'), process.platform === 'win32' ? 'junction' : 'dir');
+  const cwd = path.join(context.directory, 'linked');
+  applyInstall(prepareInstall({ ...context, cwd, selectedAgents: ['claude'], scope: 'project' }));
+  assert.ok(fs.existsSync(path.join(redirected, '.claude/skills/gitstart-init/SKILL.md')));
+});
+
 for (const existing of [false, true]) {
   test(`rejects a stale ${existing ? 'existing' : 'new'} destination after preflight`, t => {
     const context = fixture(t);

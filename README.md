@@ -4,7 +4,7 @@
     Three skills for coding agents to initialize repositories, maintain READMEs, and keep documentation useful as projects evolve.
 </p>
 
-GitStart v0.1.0 packages three Markdown skills and a dependency-free Node.js installer for Claude Code, Codex, Cursor, VS Code with GitHub Copilot, and Gemini CLI. It applies its documentation conventions to this repository. The existing Codex and Claude Code plugins remain available.
+GitStart packages three Markdown skills and a dependency-free Node.js installer for Claude Code, Codex, Cursor, VS Code with GitHub Copilot, and Gemini CLI. It applies its documentation conventions to this repository. The existing Codex and Claude Code plugins remain available.
 
 ## Quick Start
 
@@ -49,7 +49,7 @@ npx gitstart-cli
 
 Identical files are skipped. Before replacing a different file supplied by GitStart, the interactive installer presents its exact path and asks for approval. Extra user files are preserved. Non-interactive conflicts abort before any files are written. The installer does not install hosts, edit their settings, or run during package installation.
 
-If an update fails, the installer restores changes to the affected skill and reports earlier completed installations. If recovery also fails, it reports the retained backup paths for replaced files; inspect those before retrying. Destination symlinks are refused.
+If an update fails, the installer restores changes to the affected skill and reports earlier completed installations. If recovery also fails, it reports the retained backup paths for replaced files; inspect those before retrying. Symlinks and junctions inside the destination are refused; the project or home directory itself may be redirected.
 
 Start a fresh agent session after installation and check that all three skills appear. Paths follow official documentation; manual discovery and workflow testing in all five hosts remain pending. Some hosts also read another host's skill directories, so agent selection controls where files are copied, not which agents can discover them. Avoid installing the same skills through both copies and plugins unless you intend duplicate discovery.
 
@@ -97,7 +97,7 @@ Removing copied skills or plugins does not remove documentation they have create
 | --- | --- |
 | [gitstart-init](skills/gitstart-init/SKILL.md) | Inspect a new repository and establish Git and documentation foundations. |
 | [gitstart-readme](skills/gitstart-readme/SKILL.md) | Create or refresh a README using the project's actual requirements and commands. |
-| [gitstart-docs](skills/gitstart-docs/SKILL.md) | Reconcile documentation, decisions, open questions, and references with current project behavior. |
+| [gitstart-docs](skills/gitstart-docs/SKILL.md) | Reconcile documentation, decisions, open questions, and references with current project behavior. It can also audit without editing and ships `scripts/check-links.mjs`, which checks relative Markdown links (`node check-links.mjs [root]`). |
 
 Select the relevant skill in your agent and describe the task, such as “Use gitstart-init to establish this repository from its project idea.” Copied Claude Code skills use `/gitstart-init`, `/gitstart-readme`, and `/gitstart-docs`; the Claude plugin uses `/gitstart:gitstart-init`, `/gitstart:gitstart-readme`, and `/gitstart:gitstart-docs`.
 

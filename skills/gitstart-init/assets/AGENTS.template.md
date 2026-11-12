@@ -8,6 +8,7 @@ Read the README and the relevant project documentation before changing files.
 - Inspect the affected code, callers, and validation commands before editing.
 - Preserve unrelated work and never expose credentials or private configuration.
 - Ask about consequential missing decisions; state safe, reversible assumptions.
+- When a change alters behavior, commands, configuration, or decisions, update the affected documentation in the same change.
 - Validate changed behavior with the narrowest relevant checks. State what was actually run and what remains unverified.
 
 ## Project context

@@ -6,17 +6,15 @@ The three skills are independently usable:
 
 - `gitstart-init` establishes a repository and useful documentation from current intent.
 - `gitstart-readme` maintains the public overview and setup instructions.
-- `gitstart-docs` reconciles the broader documentation with the repository's current state.
+- `gitstart-docs` reconciles the broader documentation with the repository's current state, or only audits it. It bundles [`scripts/check-links.mjs`](../skills/gitstart-docs/scripts/check-links.mjs), a dependency-free relative-link checker that agents run when Node.js is available; `pnpm test` runs it against this repository.
 
 The root [`plugin.json`](../plugin.json) packages the skills for Codex. [`.claude-plugin/plugin.json`](../.claude-plugin/plugin.json) packages the same directory for Claude Code. Each tool's marketplace catalog points to the plugin root; skills are not copied into separate tool-specific versions.
 
-The npm package `gitstart-cli` version `0.1.0` exposes the `gitstart-cli` binary through [`bin/gitstart-cli.js`](../bin/gitstart-cli.js). It requires Node.js 22 or newer, uses the standard library, and has no dependencies or postinstall hook. It is prepared for publication, not published.
+The npm package `gitstart-cli` exposes the `gitstart-cli` binary through [`bin/gitstart-cli.js`](../bin/gitstart-cli.js). It requires Node.js 22 or newer, uses the standard library, and has no dependencies or postinstall hook. It is prepared for publication, not published.
 
-The installer accepts multiple host selections and project or user scope, then copies all three canonical skill folders and assets to the [documented native roots](../README.md#installation). Project scope uses the current working directory; user scope uses the home directory. No host-specific skill conversion, new workflow, host installation, or settings edit is involved. Some hosts discover shared or compatible directories, so selected destinations do not imply exclusive host visibility.
+The installer copies all three canonical skill folders and assets, unconverted, to the [documented native roots](../README.md#installation); it never installs hosts or edits their settings. Selection, scope, conflict handling, and duplicate discovery with plugins are described in the README. The guarantees below are implemented in [`lib/installer.js`](../lib/installer.js).
 
-Before copying, the installer checks destination files. Identical content is skipped, extra user files are preserved, and replacing different package-supplied files requires exact-path approval interactively. Non-interactive conflicts abort before writes. Plugin distribution remains separate from copied installations; using both can expose duplicate skill names.
-
-Each changed file is rechecked before writing. Symlink destinations are refused. A failed skill update rolls back its writes without reverting earlier completed skills or overwriting external edits. Temporary backups of replaced files are removed on success or retained with their paths reported when recovery fails.
+Each changed file is rechecked before writing. Symlinks and junctions below the project or home directory are refused; the base directory itself may be redirected. A failed skill update rolls back its writes without reverting earlier completed skills or overwriting external edits. Temporary backups of replaced files are removed on success or retained with their paths reported when recovery fails.
 
 New repositories default to root `README.md` and `AGENTS.md`, human documentation in `docs/`, and agent specifications in `docs/agents/`. Existing conventions take priority unless the user accepts a migration. Templates provide structure, not invented project facts.
 

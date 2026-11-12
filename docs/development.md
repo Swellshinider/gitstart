@@ -1,6 +1,6 @@
 # Development
 
-GitStart has no build step or production dependency. Its installer uses Node.js 22 or newer; development uses pnpm. Edit the canonical skill instructions and their templates directly. Keep npm and plugin packaging metadata aligned at version `0.1.0` until a release changes it deliberately.
+GitStart has no build step or production dependency. Its installer uses Node.js 22 or newer; development uses pnpm. Edit the canonical skill instructions and their templates directly. Keep the npm and plugin versions aligned; CI enforces this.
 
 ## Local installation and updates
 
@@ -16,20 +16,20 @@ Run the Node.js test suite through pnpm:
 pnpm test
 ```
 
-This runs `node --test`. Cover CLI arguments, all host/scope paths, bundled assets, idempotence, exact-path conflict decisions, non-interactive conflicts before writes, and preservation of user files. Check npm metadata and the executable mapping as well as the plugin manifests.
+This runs `node --test`. [`test/installer.test.js`](../test/installer.test.js) covers the installer; [`test/docs.test.js`](../test/docs.test.js) checks relative Markdown links across the repository (using the bundled `skills/gitstart-docs/scripts/check-links.mjs`) and each skill's frontmatter and template tokens. The [specification](agents/specification.md) lists the acceptance criteria these tests must keep covering.
 
 Pack into a temporary directory, inspect the archive, and execute the packaged binary in another disposable project. Replace the paths with actual temporary directories:
 
 ```sh
 pnpm pack --pack-destination /absolute/path/to/temp-package
-tar -tf /absolute/path/to/temp-package/gitstart-cli-0.1.0.tgz
-tar -xf /absolute/path/to/temp-package/gitstart-cli-0.1.0.tgz -C /absolute/path/to/temp-extract
+tar -tf /absolute/path/to/temp-package/gitstart-cli-*.tgz
+tar -xf /absolute/path/to/temp-package/gitstart-cli-*.tgz -C /absolute/path/to/temp-extract
 node /absolute/path/to/temp-extract/package/bin/gitstart-cli.js --agents "claude,codex,cursor,vscode,gemini" --scope project
 ```
 
 Create the extraction directory first and run the final command from the disposable target project. Confirm the tarball includes the executable and all skill assets, excludes development-only files, and runs without dependencies. Packing is a local check; publication requires separate approval.
 
-Check all JSON files for valid syntax and confirm the npm version and both plugin versions agree. Both plugins load the root `skills/` directory; the marketplace catalogs must point to the same plugin root. Check Markdown links against repository paths, allowing directory links and excluding examples inside code fences.
+Check all JSON files for valid syntax. Both plugins load the root `skills/` directory; the marketplace catalogs must point to the same plugin root.
 
 For Claude's packaging validator, run:
 
@@ -39,15 +39,11 @@ claude plugin validate --strict .claude-plugin/marketplace.json
 claude plugin validate --strict skills
 ```
 
-An optional authoring helper is the external skill-creator `quick_validate.py`. Its location is specific to your agent installation and is not a GitStart dependency. If available, run this for each of `gitstart-init`, `gitstart-readme`, and `gitstart-docs`, replacing both placeholders:
-
-```sh
-uv run --with pyyaml python <path-to-quick_validate.py> skills/<skill-name>
-```
+Skill frontmatter is validated by `pnpm test`; no external validator is needed.
 
 ## Continuous integration
 
-[`.github/workflows/ci.yml`](../.github/workflows/ci.yml) runs on pushes to `main` and on pull requests, on `windows-latest` with Node.js 22 and 24. It runs `pnpm test`, checks that the npm and plugin versions agree, and packs the package, extracts it, and installs all five hosts into an empty project. Claude's strict plugin validators and host discovery remain manual.
+[`.github/workflows/ci.yml`](../.github/workflows/ci.yml) runs on pushes to `main` and on pull requests, on `windows-latest` with Node.js 22 and 24. It runs `pnpm test` (including the documentation checks), checks that the npm and plugin versions agree, and packs the package, extracts it, and installs all five hosts into an empty project. Claude's strict plugin validators and host discovery remain manual.
 
 ## Behavioral checks
 
