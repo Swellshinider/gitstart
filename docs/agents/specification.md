@@ -19,6 +19,8 @@ Provide three reusable repository maintenance skills, install them through a sel
 - Offer GitStart's layout for existing repositories and migrate only after acceptance.
 - Preserve Git configuration and user content. Require exact-path approval before documentation deletion.
 - Add assets and badges only when real assets or verified links exist; do not invent project answers or published URLs.
+- `gitstart-docs` bundles a dependency-free relative-link checker (`scripts/check-links.mjs`) and supports an audit-only mode that reports divergences without editing. Documentation guidance covers monorepos and splitting a specification per feature. The agent instructions template requires updating documentation in the same change as behavior.
+- The installer refuses symlinks and junctions only below the project or home directory, so a redirected base directory works. The pnpm version is pinned through `packageManager`.
 
 ## Acceptance criteria
 
@@ -26,7 +28,7 @@ Each skill is discoverable and usable independently. Initialization handles both
 
 Repeated application preserves project-specific content. Packaging metadata, skill resources, and repository links validate. Disposable-repository exercises cover existing conventions, absent branding assets, and deletion proposals with incoming references. The retained plugins must discover all three skills in isolated test configurations; behavioral checks and any unverified cases must be reported honestly.
 
-Installer tests verify all five hosts and both scopes, CLI errors, idempotence, asset copying, approved and declined conflicts, non-interactive failure before writes, and preservation of unrelated files. `pnpm test` runs `node --test`. A locally packed tarball includes the binary and canonical assets and runs without dependencies. Manual discovery and workflow validation in all five actual hosts remains a separate acceptance step.
+Installer tests verify all five hosts and both scopes, CLI errors, idempotence, asset copying, approved and declined conflicts, non-interactive failure before writes, and preservation of unrelated files. `pnpm test` runs `node --test`; it also checks relative links across the repository, each skill's frontmatter, and template tokens, and installs successfully when the project root is a symlink or junction. A locally packed tarball includes the binary and canonical assets and runs without dependencies. Manual discovery and workflow validation in all five actual hosts remains a separate acceptance step.
 
 Removal instructions identify only the three GitStart skill folders under each chosen root, require inspection of custom content, and preserve shared directories and generated project documentation. Local testing uses the checkout's absolute `bin/gitstart-cli.js` path; `npx gitstart-cli` is documented only as a command for after approved publication.
 
