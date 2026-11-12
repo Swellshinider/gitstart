@@ -52,25 +52,3 @@ Exercise the skills through an agent in disposable directories. Test an empty fo
 Confirm Git identity, remotes, configuration, and history survive. For documentation cleanup, verify that the agent presents exact deletion paths and retained information and waits for approval. Decline the proposal once and confirm no file is deleted. Check all retained references after an approved deletion.
 
 Confirm installer copies are discoverable in each of the five hosts using isolated test configurations, and retain the Codex and Claude plugin discovery checks. Metadata and file-copy validation prove packaging structure only; they do not prove the agent follows the workflow. Record executed checks and their outcomes, and state any checks that were not run.
-
-## Existing v0.1 plugin validation
-
-Validated on Windows on 2026-10-14 with Codex CLI `0.162.1` and Claude Code `2.1.296`:
-
-- All three skills passed the external skill-creator validator. Claude's strict validators passed for the plugin, marketplace, and skills.
-- JSON metadata, marketplace source paths, local Markdown links, template boundaries, and README license placement passed.
-- Both plugins installed and uninstalled in temporary configurations. Claude's component inventory and Codex's `skills/list` API discovered all three skills; Codex exposes their names with the `gitstart:` prefix.
-- Independent direct application in five disposable repositories checked bootstrap, repeated application, Git configuration preservation, existing layouts, missing branding, and pending documentation deletions. Follow-ups confirmed that declining deletion preserved every file and approving one exact path removed only that file, with retained information and valid references.
-
-The workflow exercises used an independent agent reading the skill files, not inference sessions launched through the installed hosts. Automatic invocation and consistent host behavior remain for manual testing. No user host configuration was changed.
-
-## Installer validation status
-
-Validated on Windows on 2026-10-14 with Node.js `24.21.0` and pnpm `11.13.0`:
-
-- `pnpm test`: 21 passed, none failed, and one Unix-permissions test skipped because Windows does not implement those permission bits.
-- Tests covered all five project/user destinations, complete assets, repetition, conflict approval/refusal, cancellation, junction rejection, concurrent edits, per-skill rollback, and retained original backups when recovery failed.
-- The packed tarball contained the executable, standard-library installer, and all canonical skill assets, excluding tests, caches, and development configuration. Its extracted CLI installed into a disposable project; `npx` also executed the local tarball successfully outside the checkout.
-- A real terminal exercised multiple-agent selection, default project scope, and Ctrl+C cancellation without writes. All five JSON manifests, 28 local Markdown links, and README license placement passed checks. Claude's three strict packaging validators passed again.
-
-Real discovery and workflow sessions for copied skills in all five hosts remain pending manual testing. Only Windows is supported; Linux and macOS are not tested. Do not interpret documented native paths or passing copy tests as completed host validation. Public npm publication has not occurred and requires separate approval.
