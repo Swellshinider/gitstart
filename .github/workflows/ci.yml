@@ -30,7 +30,7 @@ jobs:
       - name: Check metadata
         shell: pwsh
         run: |
-          $files = 'package.json', 'plugin.json', '.claude-plugin/plugin.json', '.claude-plugin/marketplace.json', '.agents/plugins/marketplace.json'
+          $files = 'package.json', 'plugin.json', '.claude-plugin/plugin.json', '.claude-plugin/marketplace.json', '.cursor-plugin/marketplace.json', '.agents/plugins/marketplace.json'
           $json = @{}
           foreach ($f in $files) { $json[$f] = Get-Content $f -Raw | ConvertFrom-Json }
           $versions = 'package.json', 'plugin.json', '.claude-plugin/plugin.json' | ForEach-Object { $json[$_].version }

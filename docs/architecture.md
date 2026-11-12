@@ -8,7 +8,7 @@ The three skills are independently usable:
 - `gitstart-readme` maintains the public overview and setup instructions.
 - `gitstart-docs` reconciles the broader documentation with the repository's current state, or only audits it. It bundles [`scripts/check-links.mjs`](../skills/gitstart-docs/scripts/check-links.mjs), a dependency-free relative-link checker that agents run when Node.js is available; `pnpm test` runs it against this repository.
 
-The root [`plugin.json`](../plugin.json) packages the skills for Codex. [`.claude-plugin/plugin.json`](../.claude-plugin/plugin.json) packages the same directory for Claude Code. Each tool's marketplace catalog points to the plugin root; skills are not copied into separate tool-specific versions.
+The root [`plugin.json`](../plugin.json) packages the skills for Codex, Cursor, and VS Code. [`.claude-plugin/plugin.json`](../.claude-plugin/plugin.json) packages the same directory for Claude Code. Marketplace catalogs point to the plugin root: [`.agents/plugins/marketplace.json`](../.agents/plugins/marketplace.json) for Codex, [`.claude-plugin/marketplace.json`](../.claude-plugin/marketplace.json) for Claude Code and VS Code (Copilot reads it as a fallback location), and [`.cursor-plugin/marketplace.json`](../.cursor-plugin/marketplace.json) for Cursor. Skills are not copied into separate tool-specific versions.
 
 The npm package `gitstart-cli` exposes the `gitstart-cli` binary through [`bin/gitstart-cli.js`](../bin/gitstart-cli.js). It requires Node.js 22 or newer, uses the standard library, and has no dependencies or postinstall hook. It is prepared for publication, not published.
 

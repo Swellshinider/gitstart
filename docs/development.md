@@ -29,7 +29,7 @@ node /absolute/path/to/temp-extract/package/bin/gitstart-cli.js --agents "claude
 
 Create the extraction directory first and run the final command from the disposable target project. Confirm the tarball includes the executable and all skill assets, excludes development-only files, and runs without dependencies. Packing is a local check; publication requires separate approval.
 
-Check all JSON files for valid syntax. Both plugins load the root `skills/` directory; the marketplace catalogs must point to the same plugin root.
+Check all JSON files for valid syntax. All plugins load the root `skills/` directory; the Codex, Claude Code (also read by VS Code), and Cursor marketplace catalogs must point to the same plugin root.
 
 For Claude's packaging validator, run:
 
@@ -51,4 +51,4 @@ Exercise the skills through an agent in disposable directories. Test an empty fo
 
 Confirm Git identity, remotes, configuration, and history survive. For documentation cleanup, verify that the agent presents exact deletion paths and retained information and waits for approval. Decline the proposal once and confirm no file is deleted. Check all retained references after an approved deletion.
 
-Confirm installer copies are discoverable in each of the five hosts using isolated test configurations, and retain the Codex and Claude plugin discovery checks. Metadata and file-copy validation prove packaging structure only; they do not prove the agent follows the workflow. Record executed checks and their outcomes, and state any checks that were not run.
+Confirm installer copies are discoverable in each of the five hosts using isolated test configurations, and retain the Codex, Claude, Cursor, and VS Code plugin discovery checks. Metadata and file-copy validation prove packaging structure only; they do not prove the agent follows the workflow. Record executed checks and their outcomes, and state any checks that were not run.
