@@ -4,7 +4,7 @@
     Three skills for coding agents to initialize repositories, maintain READMEs, and keep documentation useful as projects evolve.
 </p>
 
-GitStart packages three Markdown skills and a dependency-free Node.js installer for Claude Code, Codex, Cursor, VS Code with GitHub Copilot, and Gemini CLI. It applies its documentation conventions to this repository. The existing Codex and Claude Code plugins remain available.
+GitStart packages three Markdown skills and a dependency-free Node.js installer for Claude Code, Codex, Cursor, VS Code with GitHub Copilot, and Gemini CLI. It applies its documentation conventions to this repository. Plugins for Codex, Claude Code, Cursor, and VS Code remain available.
 
 ## Quick Start
 
@@ -75,6 +75,12 @@ Restart your agent session after installation if the skills are not available. U
 
 Claude's `--scope local` enables GitStart only in the directory where you install it. To use it in another project, run the Claude commands there with the absolute GitStart checkout path instead of `.`.
 
+For Cursor, the catalog is `.cursor-plugin/marketplace.json`. On Teams or Enterprise plans, an admin opens Dashboard → Plugins & MCPs → Team Marketplaces → Add Marketplace → Import from Repo and enters the repository URL. For local testing, copy the checkout to `~/.cursor/plugins/local/gitstart`, then run **Developer: Reload Window** and check **Customize**.
+
+For VS Code with GitHub Copilot, enable `chat.plugins.enabled` and add the checkout to the `chat.plugins.marketplaces` setting, for example `"file:///C:/absolute/path/to/GitStart"` (or `Swellshinider/gitstart` once published on the default branch). Then run **Chat: Open Customizations**, open Plugins, Browse, and install `gitstart`. **Chat: Install Plugin from Source** also accepts the checkout folder. VS Code reads the root `plugin.json` and the `.claude-plugin/marketplace.json` catalog.
+
+Cursor and VS Code plugin discovery follows their documentation and has not yet been tested in the actual hosts.
+
 ### Uninstallation
 
 For installer copies, inspect custom content first, then remove only `gitstart-init/`, `gitstart-readme/`, and `gitstart-docs/` under each selected skills root in the table above. Preserve any custom content you need before removal. Do not remove shared skills roots or other skills.
@@ -88,6 +94,8 @@ codex plugin remove gitstart@gitstart
 ```sh
 claude plugin uninstall gitstart@gitstart --scope local
 ```
+
+For Cursor, uninstall GitStart in **Customize**, or delete `~/.cursor/plugins/local/gitstart` for a local copy. For VS Code, uninstall it from the Plugins view.
 
 Removing copied skills or plugins does not remove documentation they have created in your projects.
 
