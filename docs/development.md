@@ -4,9 +4,44 @@ GitStart has no build step or production dependency. Its installer uses Node.js 
 
 ## Local installation and updates
 
-Use the local entry point in the [README](../README.md) from a disposable project to test the installer. Test user scope with an isolated home directory rather than modifying your real host configuration. Re-running the installer skips identical files and prompts before replacing changed package files while preserving extra user files. No npm publication or registry access is needed for local testing.
+### Installer from a checkout
 
-For retained plugin installations, register a local checkout using the README commands. Consult `codex plugin --help` or `claude plugin --help` for the installed tool's update commands; alternatively remove and reinstall the plugin, then start a fresh session. Verify that the agent discovers the current skill text rather than a cached previous copy.
+Run the local entry point from a disposable project, replacing the path with your checkout's absolute path:
+
+```sh
+node /absolute/path/to/GitStart/bin/gitstart-cli.js
+node /absolute/path/to/GitStart/bin/gitstart-cli.js --agents "claude,codex,cursor,vscode,gemini" --scope project
+```
+
+Test user scope with an isolated home directory rather than modifying your real host configuration. Re-running the installer skips identical files and prompts before replacing changed package files while preserving extra user files. No registry access is needed.
+
+To test the global-install path of the [README](../README.md) without publishing, install a packed tarball into a temporary prefix:
+
+```sh
+pnpm pack --pack-destination /absolute/path/to/temp-package
+npm install -g --prefix /absolute/path/to/temp-prefix /absolute/path/to/temp-package/gitstart-cli-*.tgz
+/absolute/path/to/temp-prefix/gitstart-cli --version
+```
+
+### Plugins from a checkout
+
+Register the local checkout instead of the published repository. Run these from the checkout, or replace `.` with its absolute path:
+
+```sh
+codex plugin marketplace add .
+codex plugin add gitstart@gitstart
+```
+
+```sh
+claude plugin marketplace add .
+claude plugin install gitstart@gitstart --scope local
+```
+
+Claude's `--scope local` enables GitStart only in the directory where you install it; run the commands from the project that should get it, with the absolute checkout path. Remove with `codex plugin remove gitstart@gitstart` or `claude plugin uninstall gitstart@gitstart --scope local`.
+
+For Cursor, copy the checkout to `~/.cursor/plugins/local/gitstart`, run **Developer: Reload Window**, and check **Customize**. For VS Code, enable `chat.plugins.enabled`, add the checkout to `chat.plugins.marketplaces` (for example `"file:///C:/absolute/path/to/GitStart"`), then install `gitstart` from **Chat: Open Customizations** → Plugins → Browse, or use **Chat: Install Plugin from Source** with the checkout folder. VS Code reads the root `plugin.json` and the `.claude-plugin/marketplace.json` catalog. Cursor and VS Code discovery follows their documentation and has not been tested in the actual hosts.
+
+Consult `codex plugin --help` or `claude plugin --help` for update commands; alternatively remove and reinstall the plugin, then start a fresh session. Verify that the agent discovers the current skill text rather than a cached previous copy.
 
 ## Validation
 

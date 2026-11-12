@@ -8,9 +8,10 @@ Provide three reusable repository maintenance skills, install them through a sel
 - Supported platform: Windows 11 only. CI runs on GitHub's Windows runner with Node.js 22 and 24.
 - Canonical skills: `gitstart-init`, `gitstart-readme`, and `gitstart-docs` under `skills/`.
 - Plugin and marketplace name: `gitstart`; initial version: `0.1.0`.
-- Private GitHub distribution repository: `Swellshinider/gitstart`; collaborators require repository access. Local installation is the verified path.
+- Open-source GitHub distribution repository: `Swellshinider/gitstart` (made public after this change merges, with private vulnerability reporting enabled). Community files: `CODE_OF_CONDUCT.md`, `SECURITY.md`, `SUPPORT.md`, `docs/contributing.md`, and issue and PR templates under `.github/`.
+- The README targets end users: Quick Start lists only what using GitStart needs and installs from the plugin marketplace (`Swellshinider/gitstart`) or a global `gitstart-cli` install (`npm install -g` or `pnpm add -g`; no `npx`). Running from a checkout and tests live in `docs/development.md`.
 - Codex, Claude Code, Cursor, and VS Code plugins share the same canonical skill files and remain available separately from the copy installer. Catalogs: `.agents/plugins/marketplace.json` (Codex), `.claude-plugin/marketplace.json` (Claude Code and VS Code), `.cursor-plugin/marketplace.json` (Cursor).
-- npm package and binary: `gitstart-cli`; version: `0.1.0`; Node.js 22 or newer; no dependencies, build step, or postinstall hook. Prepare for publication without publishing until separately approved.
+- npm package and binary: `gitstart-cli`; version: `0.1.0`; Node.js 22 or newer; no dependencies, build step, or postinstall hook. Publish to npm only after separate approval; until then the README's global-install commands do not work and the packed tarball is the verified path.
 - Installer hosts: Claude Code, Codex, Cursor, VS Code with GitHub Copilot, and Gemini CLI. Copy all three skill folders and their assets without conversion to the native roots documented in the README.
 - Interactive numbered multiple selection, then project or user scope; project defaults to the current working directory, user uses the home directory. No host installation, host settings changes, or new workflows.
 - Explicit arguments: `--agents claude,codex,cursor,vscode,gemini` with any selection, `--scope project|user`, `--help`, and `--version`. Non-interactive installation requires both selection flags.
@@ -24,13 +25,13 @@ Provide three reusable repository maintenance skills, install them through a sel
 
 ## Acceptance criteria
 
-Each skill is discoverable and usable independently. Initialization handles both an empty directory and existing Git safely. README maintenance includes requirements, installation, uninstallation, agent guidance, documentation, policies, and license last. Documentation maintenance reconciles current facts, resolves references, and retains open questions.
+Each skill is discoverable and usable independently. Initialization handles both an empty directory and existing Git safely. README maintenance puts end-user requirements, installation from published channels, and uninstallation first; development setup is a linked pointer after usage. It also includes agent guidance, documentation, policies, and license last. Documentation maintenance reconciles current facts, resolves references, and retains open questions.
 
 Repeated application preserves project-specific content. Packaging metadata, skill resources, and repository links validate. Disposable-repository exercises cover existing conventions, absent branding assets, and deletion proposals with incoming references. The retained plugins must discover all three skills in isolated test configurations; behavioral checks and any unverified cases must be reported honestly.
 
 Installer tests verify all five hosts and both scopes, CLI errors, idempotence, asset copying, approved and declined conflicts, non-interactive failure before writes, and preservation of unrelated files. `pnpm test` runs `node --test`; it also checks relative links across the repository, each skill's frontmatter, and template tokens, and installs successfully when the project root is a symlink or junction. A locally packed tarball includes the binary and canonical assets and runs without dependencies. Manual discovery and workflow validation in all five actual hosts, and plugin installation in Codex, Claude Code, Cursor, and VS Code, remain a separate acceptance step.
 
-Removal instructions identify only the three GitStart skill folders under each chosen root, require inspection of custom content, and preserve shared directories and generated project documentation. Local testing uses the checkout's absolute `bin/gitstart-cli.js` path; `npx gitstart-cli` is documented only as a command for after approved publication.
+Removal instructions identify only the three GitStart skill folders under each chosen root, require inspection of custom content, and preserve shared directories and generated project documentation. Local testing from a checkout is documented in `docs/development.md`, not the README.
 
 ## Milestones
 
