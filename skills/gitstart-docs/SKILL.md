@@ -17,6 +17,7 @@ Keep active documentation accurate and short enough to serve both people and age
 - Repair affected links, including README indexes, agent instructions, Markdown links, and references from code or configuration. Do not assume a file is unused because no Markdown link points to it.
 - When the specification covers more than one deliverable, split it into `docs/agents/<feature>.md` files and keep `specification.md` as an index with the overall intent.
 - In a monorepo, keep shared documentation at the root. Each package's README and `AGENTS.md` cover only what is specific to it and link to the root instead of repeating it.
+- If agent instructions exist without an "Agent guardrails" section, offer [it](assets/agent-guardrails.md) once: instructions, not host-enforced settings, that make agents ask before destructive commands and before leaving the sandbox even when the host skips permission prompts. Add it verbatim only after acceptance and do not ask again after a decline. Never offer or add it in audit-only mode.
 - Do not archive by default, create repetitive progress logs, copy secrets, or rewrite unrelated files. Keep the original idea document unless its relocation or removal is explicitly approved.
 
 ## Audit only

@@ -34,6 +34,11 @@ test('this repository has no broken relative Markdown links', () => {
   assert.equal(result.status, 0, result.stderr);
 });
 
+test('agent-guardrails asset copies are identical across skills', () => {
+  const read = skill => fs.readFileSync(path.join(repository, 'skills', skill, 'assets/agent-guardrails.md'), 'utf8');
+  assert.equal(read('gitstart-docs'), read('gitstart-init'));
+});
+
 for (const skill of fs.readdirSync(path.join(repository, 'skills'))) {
   test(`skill ${skill} has valid frontmatter and balanced template tokens`, () => {
     const directory = path.join(repository, 'skills', skill);

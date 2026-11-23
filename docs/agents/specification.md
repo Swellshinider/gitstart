@@ -21,6 +21,7 @@ Provide three reusable repository maintenance skills, install them through a sel
 - Preserve Git configuration and user content. Require exact-path approval before documentation deletion.
 - Add assets and badges only when real assets or verified links exist; do not invent project answers or published URLs.
 - `gitstart-docs` bundles a dependency-free relative-link checker (`scripts/check-links.mjs`) and supports an audit-only mode that reports divergences without editing. Documentation guidance covers monorepos and splitting a specification per feature. The agent instructions template requires updating documentation in the same change as behavior.
+- `gitstart-init` and `gitstart-docs` offer an opt-in "Agent guardrails" section for `AGENTS.md` (asset `agent-guardrails.md`, an identical copy in each skill). It instructs agents to ask before destructive commands and before leaving the sandbox even when the host skips permission prompts. It is added verbatim only after acceptance, is never offered in audit-only mode, and is instructions only: GitStart does not change host settings.
 - The installer refuses symlinks and junctions only below the project or home directory, so a redirected base directory works. The pnpm version is pinned through `packageManager`.
 
 ## Acceptance criteria
