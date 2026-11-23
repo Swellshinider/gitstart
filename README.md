@@ -113,6 +113,8 @@ Select the skill in your agent and describe the task, such as “Use gitstart-in
 
 GitStart preserves existing conventions and project-specific content. It offers its layout before migrating an established repository. Documentation deletion requires approval of the exact paths and retained information.
 
+`gitstart-init` and `gitstart-docs` can also add an opt-in "Agent guardrails" section to `AGENTS.md`. It tells agents to ask before destructive commands and before leaving the sandbox, even when the host skips permission prompts. These are instructions, not host-enforced settings.
+
 ## Development
 
 To work on GitStart itself, including running it from a checkout and its tests, see the [development guide](docs/development.md) and the [contribution guidelines](docs/contributing.md).
